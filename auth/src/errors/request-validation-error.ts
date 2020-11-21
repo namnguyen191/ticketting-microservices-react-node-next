@@ -4,6 +4,8 @@ import { CustomError } from './custom-error';
 export class RequestValidationError extends CustomError {
   statusCode = 400;
 
+  // Params:
+  // errors: An array of ValidationError objects. (Required)
   constructor(public errors: ValidationError[]) {
     super('Invalid request parameters!');
 

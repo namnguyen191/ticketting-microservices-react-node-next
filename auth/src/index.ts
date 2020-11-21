@@ -1,32 +1,14 @@
-import express from 'express';
-import { json } from 'body-parser';
-import 'express-async-errors';
 import mongoose from 'mongoose';
-
-import { currentUserRouter } from './routes/current-user';
-import { signinRouter } from './routes/signin';
-import { signoutRouter } from './routes/signout';
-import { signupRouter } from './routes/signup';
-import { errorHandler } from './middlewares/error-handler';
-import { NotFoundError } from './errors/not-found-error';
-
-const app = express();
-app.use(json());
-
-app.use(currentUserRouter);
-app.use(signinRouter);
-app.use(signoutRouter);
-app.use(signupRouter);
-
-app.get('*', async () => {
-  throw new NotFoundError();
-});
-
-app.use(errorHandler);
+import { app } from './app';
+import dotenv from 'dotenv';
 
 const start = async () => {
+  if (!process.env.JWT_KEY) {
+    throw new Error('JWT Key is not defined!');
+  }
+
   try {
-    await mongoose.connect('mongodb://localhost:30007/auth', {
+    await mongoose.connect(process.env.MONGO_URI!, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true
@@ -34,6 +16,16 @@ const start = async () => {
     console.log('Connected to MongoDB');
   } catch (err) {
     console.log(err);
+    try {
+      await mongoose.connect(process.env.MONGO_URI_DEV!, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useCreateIndex: true
+      });
+      console.log('Connected to MongoDB');
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   app.listen(3000, () => {
