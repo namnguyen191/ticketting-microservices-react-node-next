@@ -1,6 +1,7 @@
 import express from 'express';
 import { json } from 'body-parser';
 import 'express-async-errors';
+import cors from 'cors';
 
 import cookieSession from 'cookie-session';
 import dotenv from 'dotenv';
@@ -23,6 +24,8 @@ app.use(
     // secure: true
   })
 );
+
+app.use(cors());
 
 app.use(currentUserRouter);
 app.use(signinRouter);
