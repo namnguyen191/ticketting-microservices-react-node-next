@@ -43,12 +43,11 @@ const userSchema = new mongoose.Schema(
 );
 
 // Using function instead of () is important cause we need the 'this' keyword to point to the current document that's being saved
-userSchema.pre('save', async function (done) {
+userSchema.pre('save', async function (this) {
   if (this.isModified('password')) {
     const hashed = await Password.toHash(this.get('password'));
     this.set('password', hashed);
   }
-  done();
 });
 
 userSchema.statics.build = (attrs: UserAttrs) => {
@@ -58,3 +57,5 @@ userSchema.statics.build = (attrs: UserAttrs) => {
 const User = mongoose.model<UserDoc, UserModel>('User', userSchema);
 
 export { User };
+
+// Hi There!

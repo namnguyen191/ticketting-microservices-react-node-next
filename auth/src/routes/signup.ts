@@ -3,10 +3,12 @@ import { body } from 'express-validator';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 
-import { BadRequestError } from '../errors/bad-request-error';
-import { RequestValidationError } from '../errors/request-validation-error';
+import {
+  BadRequestError,
+  RequestValidationError,
+  validateRequest
+} from '@nnticketting/common';
 import { User } from '../models/user';
-import { validateRequest } from '../middlewares/validate-request';
 import { CustomRequest, RegisterFormBody } from '../services/Interfaces';
 
 dotenv.config();
@@ -28,7 +30,7 @@ router.post(
     const existingUser = await User.findOne({ email });
 
     if (existingUser) {
-      throw new BadRequestError('Email is already exist');
+      throw new BadRequestError('Email is already exist!');
     }
 
     const user = User.build({

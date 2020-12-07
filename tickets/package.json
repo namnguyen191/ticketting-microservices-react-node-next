@@ -1,11 +1,11 @@
 {
-  "name": "auth",
+  "name": "tickets",
   "version": "1.0.0",
   "description": "Authorization Service for Ticketting",
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "ts-node-dev --poll --interval 1000 src/index.ts",
+    "start": "ts-node-dev --no-deps --respawn --poll --interval 1000 src/index.ts",
     "test": "jest --watchAll --no-cache"
   },
   "jest": {
@@ -40,7 +40,6 @@
     "express-validator": "^6.6.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.13",
-    "ts-node": "^9.1.0",
     "ts-node-dev": "^1.0.0",
     "typescript": "^4.1.2"
   }
