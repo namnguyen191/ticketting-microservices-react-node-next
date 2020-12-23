@@ -26,7 +26,7 @@
     "ts-jest": "^26.4.4"
   },
   "dependencies": {
-    "@nnticketting/common": "^1.0.5",
+    "@nnticketting/common": "^1.0.7",
     "@types/cookie-session": "^2.0.41",
     "@types/cors": "^2.8.8",
     "@types/express": "^4.17.8",
